@@ -1,5 +1,6 @@
 const express = require("express")
 const dotenv = require("dotenv")
+const routes = require("./routes")
 
 const mongodb = require("./data/database")
 
@@ -11,6 +12,9 @@ const port = process.env.PORT || 3000
 
 // This middleware allows the API to read JSON data
 app.use(express.json())
+
+// This connects my routes folder to the server
+app.use("/", routes)
 
 // Simple homepage route
 app.get("/", (req, res) => {
