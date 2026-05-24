@@ -71,9 +71,26 @@ const updateTool = async (req, res) => {
   }
 }
 
+// This deletes a tool by its id
+const deleteTool = async (req, res) => {
+  const toolId = new ObjectId(req.params.id)
+
+  const response = await mongodb
+    .getDb()
+    .collection("tools")
+    .deleteOne({ _id: toolId })
+
+  if (response.deletedCount > 0) {
+    res.status(200).send()
+  } else {
+    res.status(500).json(response.error || "Some error occurred while deleting the tool.")
+  }
+}
+
 module.exports = {
   getAllTools,
   getSingleTool,
   createTool,
   updateTool,
+  deleteTool
 }

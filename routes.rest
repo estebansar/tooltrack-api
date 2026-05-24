@@ -17,3 +17,20 @@ Content-Type: application/json
   "available": true,
   "notes": "Used for garage projects"
 }
+
+### Update tool by id
+PUT http://localhost:3000/tools/6a12422733106937be745647
+Content-Type: application/json
+
+{
+  "toolName": "Impact Driver",
+  "brand": "Milwaukee",
+  "category": "Power Tool",
+  "condition": "Excellent",
+  "purchaseYear": 2024,
+  "available": true,
+  "notes": "Updated tool information"
+}
+
+### Delete tool by id
+DELETE http://localhost:3000/tools/6a12422733106937be745647
