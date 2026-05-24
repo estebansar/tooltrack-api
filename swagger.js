@@ -5,8 +5,8 @@ const doc = {
     title: "ToolTrack API",
     description: "API documentation for ToolTrack project"
   },
-  host: "localhost:3000",
-  schemes: ["http"]
+  host: "tooltrack-api.onrender.com",
+  schemes: ["https"]
 }
 
 const outputFile = "./swagger.json"
