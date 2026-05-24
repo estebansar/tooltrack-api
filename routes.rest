@@ -1,0 +1,16 @@
+### Get all tools
+GET http://localhost:3000/tools
+
+### Create new tool
+POST http://localhost:3000/tools
+Content-Type: application/json
+
+{
+  "toolName": "Cordless Drill",
+  "brand": "DeWalt",
+  "category": "Power Tool",
+  "condition": "Good",
+  "purchaseYear": 2023,
+  "available": true,
+  "notes": "Used for garage projects"
+}
