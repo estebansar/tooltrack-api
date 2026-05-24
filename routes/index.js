@@ -12,4 +12,7 @@ router.get("/tools/:id", toolsController.getSingleTool)
 // This route creates a new tool
 router.post("/tools", toolsController.createTool)
 
+// This route updates a tool by id
+router.put("/tools/:id", toolsController.updateTool)
+
 module.exports = router

@@ -45,8 +45,35 @@ const createTool = async (req, res) => {
   }
 }
 
+// This updates a tool by its id
+const updateTool = async (req, res) => {
+  const toolId = new ObjectId(req.params.id)
+
+  const tool = {
+    toolName: req.body.toolName,
+    brand: req.body.brand,
+    category: req.body.category,
+    condition: req.body.condition,
+    purchaseYear: req.body.purchaseYear,
+    available: req.body.available,
+    notes: req.body.notes
+  }
+
+  const response = await mongodb
+    .getDb()
+    .collection("tools")
+    .replaceOne({ _id: toolId }, tool)
+
+  if (response.modifiedCount > 0) {
+    res.status(204).send()
+  } else {
+    res.status(500).json(response.error || "Some error occurred while updating the tool.")
+  }
+}
+
 module.exports = {
   getAllTools,
   getSingleTool,
-  createTool
+  createTool,
+  updateTool,
 }
