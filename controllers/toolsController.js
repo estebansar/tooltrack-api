@@ -1,4 +1,5 @@
 const mongodb = require("../data/database")
+const ObjectId = require("mongodb").ObjectId
 
 // This gets all tools from the tools collection
 const getAllTools = async (req, res) => {
@@ -9,6 +10,19 @@ const getAllTools = async (req, res) => {
     res.status(200).json(tools)
   })
 }
+
+// This gets one tool by its id
+const getSingleTool = async (req, res) => {
+  const toolId = new ObjectId(req.params.id)
+
+  const result = await mongodb.getDb().collection("tools").find({ _id: toolId })
+
+  result.toArray().then((tools) => {
+    res.setHeader("Content-Type", "application/json")
+    res.status(200).json(tools[0])
+  })
+}
+
 
 // This creates a new tool in MongoDB
 const createTool = async (req, res) => {
@@ -33,5 +47,6 @@ const createTool = async (req, res) => {
 
 module.exports = {
   getAllTools,
+  getSingleTool,
   createTool
 }

@@ -4,6 +4,9 @@ const routes = require("./routes")
 
 const mongodb = require("./data/database")
 
+const swaggerUi = require("swagger-ui-express")
+const swaggerDocument = require("./swagger.json")
+
 dotenv.config()
 
 const app = express()
@@ -15,6 +18,9 @@ app.use(express.json())
 
 // This connects my routes folder to the server
 app.use("/", routes)
+
+// This sets up the API documentation route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Simple homepage route
 app.get("/", (req, res) => {

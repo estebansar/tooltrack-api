@@ -1,6 +1,9 @@
 ### Get all tools
 GET http://localhost:3000/tools
 
+### Get one tool by id
+GET http://localhost:3000/tools/6a12422733106937be745647
+
 ### Create new tool
 POST http://localhost:3000/tools
 Content-Type: application/json
