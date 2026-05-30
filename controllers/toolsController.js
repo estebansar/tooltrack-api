@@ -138,17 +138,30 @@ const updateTool = async (req, res) => {
 
 // This deletes a tool by its id
 const deleteTool = async (req, res) => {
-  const toolId = new ObjectId(req.params.id)
+  try {
 
-  const response = await mongodb
-    .getDb()
-    .collection("tools")
-    .deleteOne({ _id: toolId })
+    // This checks if the id in the URL is valid
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json("Invalid tool id.")
+    }
 
-  if (response.deletedCount > 0) {
-    res.status(200).send()
-  } else {
-    res.status(500).json(response.error || "Some error occurred while deleting the tool.")
+    const toolId = new ObjectId(req.params.id)
+
+    const response = await mongodb
+      .getDb()
+      .collection("tools")
+      .deleteOne({ _id: toolId })
+
+    if (response.deletedCount > 0) {
+      res.status(204).send()
+    } else {
+      res.status(404).json("Tool not found.")
+    }
+
+  } catch (error) {
+
+    // This catches unexpected server errors
+    res.status(500).json("Some error occurred while deleting the tool.")
   }
 }
 
