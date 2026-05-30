@@ -92,27 +92,47 @@ const createTool = async (req, res) => {
 
 // This updates a tool by its id
 const updateTool = async (req, res) => {
-  const toolId = new ObjectId(req.params.id)
+  try {
 
-  const tool = {
-    toolName: req.body.toolName,
-    brand: req.body.brand,
-    category: req.body.category,
-    condition: req.body.condition,
-    purchaseYear: req.body.purchaseYear,
-    available: req.body.available,
-    notes: req.body.notes
-  }
+    // This checks if the id in the URL is valid
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json("Invalid tool id.")
+    }
 
-  const response = await mongodb
-    .getDb()
-    .collection("tools")
-    .replaceOne({ _id: toolId }, tool)
+    const toolId = new ObjectId(req.params.id)
 
-  if (response.modifiedCount > 0) {
-    res.status(204).send()
-  } else {
-    res.status(500).json(response.error || "Some error occurred while updating the tool.")
+    const tool = {
+      toolName: req.body.toolName,
+      brand: req.body.brand,
+      category: req.body.category,
+      condition: req.body.condition,
+      purchaseYear: req.body.purchaseYear,
+      available: req.body.available,
+      notes: req.body.notes
+    }
+
+    // This checks if the required fields are included
+    const validationError = validateTool(tool)
+
+    if (validationError) {
+      return res.status(400).json(validationError)
+    }
+
+    const response = await mongodb
+      .getDb()
+      .collection("tools")
+      .replaceOne({ _id: toolId }, tool)
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send()
+    } else {
+      res.status(404).json("Tool not found or no changes were made.")
+    }
+
+  } catch (error) {
+
+    // This catches unexpected server errors
+    res.status(500).json("Some error occurred while updating the tool.")
   }
 }
 
