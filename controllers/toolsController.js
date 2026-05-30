@@ -60,22 +60,33 @@ const getSingleTool = async (req, res) => {
 
 // This creates a new tool in MongoDB
 const createTool = async (req, res) => {
-  const tool = {
-    toolName: req.body.toolName,
-    brand: req.body.brand,
-    category: req.body.category,
-    condition: req.body.condition,
-    purchaseYear: req.body.purchaseYear,
-    available: req.body.available,
-    notes: req.body.notes
-  }
+  try {
+    const tool = {
+      toolName: req.body.toolName,
+      brand: req.body.brand,
+      category: req.body.category,
+      condition: req.body.condition,
+      purchaseYear: req.body.purchaseYear,
+      available: req.body.available,
+      notes: req.body.notes
+    }
 
-  const response = await mongodb.getDb().collection("tools").insertOne(tool)
+    // This checks if the required fields are included
+    const validationError = validateTool(tool)
 
-  if (response.acknowledged) {
-    res.status(201).json(response)
-  } else {
-    res.status(500).json(response.error || "Some error occurred while creating the tool.")
+    if (validationError) {
+      return res.status(400).json(validationError)
+    }
+
+    const response = await mongodb.getDb().collection("tools").insertOne(tool)
+
+    if (response.acknowledged) {
+      res.status(201).json(response)
+    } else {
+      res.status(500).json("Some error occurred while creating the tool.")
+    }
+  } catch (error) {
+    res.status(500).json("Some error occurred while creating the tool.")
   }
 }
 
