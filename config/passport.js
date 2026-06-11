@@ -1,7 +1,5 @@
 const passport = require("passport")
 
-const passport = require("passport")
-
 // This strategy lets Passport use GitHub login
 const GitHubStrategy = require("passport-github2").Strategy
 

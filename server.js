@@ -1,5 +1,6 @@
 const express = require("express")
 const dotenv = require("dotenv")
+const session = require("express-session") // Handles login sessions
 const routes = require("./routes")
 
 const mongodb = require("./data/database")
@@ -9,12 +10,29 @@ const swaggerDocument = require("./swagger.json")
 
 dotenv.config()
 
+const passport = require("./config/passport") // Uses our GitHub OAuth setup
+
 const app = express()
 
 const port = process.env.PORT || 3000
 
 // This middleware allows the API to read JSON data
 app.use(express.json())
+
+// This creates a session so users stay logged in
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // Secret from .env
+    resave: false,
+    saveUninitialized: false
+  })
+)
+
+// Starts Passport authentication
+app.use(passport.initialize())
+
+// Allows Passport to use login sessions
+app.use(passport.session())
 
 // This connects my routes folder to the server
 app.use("/", routes)
