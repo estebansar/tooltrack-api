@@ -40,6 +40,14 @@ router.get("/logout", (req, res, next) => {
   })
 })
 
+// This route checks if the user is currently logged in-- testing for lesson 8
+router.get("/auth-status", (req, res) => {
+  res.json({
+    authenticated: req.isAuthenticated(),
+    user: req.user || null
+  })
+})
+
 // This route shows all tools- lesson 7
 router.get("/tools", toolsController.getAllTools)
 
