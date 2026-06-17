@@ -32,8 +32,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // Render uses https
-      sameSite: "none" // Allows Swagger to use the login session cookie
+      secure: false, // Render uses https--this will fix hte problem with swageer not showing correct the post -lesson 8
     }
   })
 )
