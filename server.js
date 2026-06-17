@@ -1,6 +1,7 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const session = require("express-session") // Handles login sessions
+const cors = require("cors") // Helps the browser send login session cookies --- need for be able to use post while we are login--lesson 8
 const routes = require("./routes")
 
 const mongodb = require("./data/database")
@@ -16,15 +17,24 @@ const app = express()
 
 const port = process.env.PORT || 3000
 
-// This middleware allows the API to read JSON data
-app.use(express.json())
+// This allows requests from my Render site to use the login session--- lesson 8
+app.use(
+  cors({
+    origin: "https://tooltrack-api.onrender.com",
+    credentials: true
+  })
+)
 
-// This creates a session so users stay logged in
+// This creates a session so users stay logged in- lesson 7--- updated in lesson 8- fixed the problem with post
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // Secret from .env
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      secure: true, // Render uses https
+      sameSite: "none" // Allows Swagger to use the login session cookie
+    }
   })
 )
 
