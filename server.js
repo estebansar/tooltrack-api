@@ -25,6 +25,9 @@ app.use(
   })
 )
 
+// This middleware allows the API to read JSON data from POST and PUT requests
+app.use(express.json())
+
 // This creates a session so users stay logged in- lesson 7--- updated in lesson 8- fixed the problem with post
 app.use(
   session({
