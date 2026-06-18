@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const toolsController = require("../controllers/toolsController")
+const categoriesController = require("../controllers/categoriesController") // lesson 8
 const passport = require("../config/passport")
 
 // This checks if the user is logged in before using protected routes- lesson 8
@@ -62,5 +63,28 @@ router.put("/tools/:id", isAuthenticated, toolsController.updateTool)
 
 // This route deletes a tool by id- lesson 7--- updated to lesson 8 by adding isAuthenticated
 router.delete("/tools/:id", isAuthenticated, toolsController.deleteTool)
+
+// Categories routes - Lesson 8 second collection
+router.get("/categories", categoriesController.getAllCategories)
+
+router.get("/categories/:id", categoriesController.getSingleCategory)
+
+router.post(
+  "/categories",
+  isAuthenticated,
+  categoriesController.createCategory
+)
+
+router.put(
+  "/categories/:id",
+  isAuthenticated,
+  categoriesController.updateCategory
+)
+
+router.delete(
+  "/categories/:id",
+  isAuthenticated,
+  categoriesController.deleteCategory
+)
 
 module.exports = router

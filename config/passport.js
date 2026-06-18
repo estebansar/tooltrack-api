@@ -3,9 +3,6 @@ const passport = require("passport")
 // This strategy lets Passport use GitHub login
 const GitHubStrategy = require("passport-github2").Strategy
 
-// Shows the callback URL being used
-console.log("Callback URL:", process.env.GITHUB_CALLBACK_URL)
-
 // This tells Passport how to log in with GitHub
 passport.use(
   new GitHubStrategy(
