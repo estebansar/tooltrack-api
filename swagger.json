@@ -7,24 +7,16 @@
   },
   "host": "tooltrack-api.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/tools": {
       "get": {
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "200": { "description": "OK" }
         }
       },
       "post": {
-        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -32,50 +24,27 @@
             "schema": {
               "type": "object",
               "properties": {
-                "toolName": {
-                  "example": "any"
-                },
-                "brand": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "condition": {
-                  "example": "any"
-                },
-                "purchaseYear": {
-                  "example": "any"
-                },
-                "available": {
-                  "example": "any"
-                },
-                "notes": {
-                  "example": "any"
-                }
+                "toolName": { "example": "Cordless Drill" },
+                "brand": { "example": "DeWalt" },
+                "category": { "example": "Power Tool" },
+                "condition": { "example": "Good" },
+                "purchaseYear": { "example": 2023 },
+                "available": { "example": true },
+                "notes": { "example": "Works well" }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/tools/{id}": {
       "get": {
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -85,22 +54,13 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-        "400": {
-          "description": "Bad Request"
-          },
-        "404": {
-          "description": "Not Found"
-          },
-        "500": {
-          "description": "Internal Server Error"
-          }
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "put": {
-        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -114,48 +74,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "toolName": {
-                  "example": "any"
-                },
-                "brand": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "condition": {
-                  "example": "any"
-                },
-                "purchaseYear": {
-                  "example": "any"
-                },
-                "available": {
-                  "example": "any"
-                },
-                "notes": {
-                  "example": "any"
-                }
+                "toolName": { "example": "Cordless Drill" },
+                "brand": { "example": "DeWalt" },
+                "category": { "example": "Power Tool" },
+                "condition": { "example": "Excellent" },
+                "purchaseYear": { "example": 2023 },
+                "available": { "example": true },
+                "notes": { "example": "Updated after login test" }
               }
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description":"Bad Request"
-          },
-          "404": {
-            "description":"Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
-        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -165,20 +102,103 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description":"Not Found"
-          },
-          "500": {
-            "description":"Internal Server Error"
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "categoryName": { "example": "Power Tool" },
+                "description": { "example": "Tools powered by electricity or batteries" }
+              }
+            }
           }
+        ],
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "categoryName": { "example": "Hand Tool" },
+                "description": { "example": "Tools used by hand without electricity" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     }
   }
 }
+
